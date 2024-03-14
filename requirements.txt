@@ -2,6 +2,6 @@ fastapi
 typing
 pydantic
 requests
-json
+# json
 uvicorn
 boto3
