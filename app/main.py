@@ -43,6 +43,11 @@ def divide_me(number_1: int, number_2: int):
     div = number_2 / number_1
     return {"quotient": div}
 
+@app.get("/subtract/{number_1}/{number_2}")
+def minus_me(number_1: int, number_2: int):
+    difference = number_1 - number_2
+    return {"difference": difference}
+
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
