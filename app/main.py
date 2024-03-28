@@ -53,6 +53,11 @@ def sample_message(name: str):
     Fname = name
     return {"Goodbye": Fname }
 
+@app.get("/PEMDAS")
+def divide_add_me(number_3: int, number_4: int, number_5:int):
+    answer = (number_3 + number_5)/(number_4)
+    return {"answer": answer}
+
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
