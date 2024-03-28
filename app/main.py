@@ -58,6 +58,11 @@ def divide_add_me(number_3: int, number_4: int, number_5:int):
     answer = (number_3 + number_5)/(number_4)
     return {"answer": answer}
 
+@app.get("/meal")
+def food_groups(veg1: str, fruit1: str, protein1: str, dairy1: str, grain1: str):
+    meal = veg1 + ", " + fruit1 + ", " + protein1 + ", " + dairy1 + ", and " + grain1
+    return {"A balanced meal could include": meal}
+
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
