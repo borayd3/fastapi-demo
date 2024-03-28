@@ -48,6 +48,10 @@ def minus_me(number_1: int, number_2: int):
     difference = number_1 - number_2
     return {"difference": difference}
 
+@app.get("/name")
+def sample_message(name: str):
+    Fname = name
+    return {"Goodbye": Fname }
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
