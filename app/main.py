@@ -5,9 +5,19 @@ from typing import Optional
 from pydantic import BaseModel
 import json
 import requests
+import os
+import MySQLdb
+from fastapi.staticfiles import StaticFiles
+
 # import boto3
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
+
+DBHOST = os.environ.get('DBHOST')
+DBUSER = os.environ.get('DBUSER')
+DBPASS = os.environ.get('DBPASS')
+DB = "ngx3fy" 
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
@@ -62,6 +72,24 @@ def divide_add_me(number_3: int, number_4: int, number_5:int):
 def food_groups(veg1: str, fruit1: str, protein1: str, dairy1: str, grain1: str):
     meal = veg1 + ", " + fruit1 + ", " + protein1 + ", " + dairy1 + ", and " + grain1
     return {"A balanced meal could include": meal}
+
+@app.get("/albums")
+def find_albums():
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("""SELECT * FROM albums ORDER BY name""")
+    results = c.fetchall()
+    db.close()
+    return results
+
+@app.get("/albums/{id}")
+def get_one_album(id):
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("SELECT * FROM albums WHERE id=" + id)
+    results = c.fetchall()
+    db.close()
+    return results
 
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
